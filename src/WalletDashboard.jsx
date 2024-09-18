@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { generateMnemonic } from 'bip39';
 import { SolanaWallet } from './Solanawallet';
-import { EthWallet } from './EthWallet';
 import { db } from './firebaseConfig'; // Firestore import
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
@@ -62,6 +61,38 @@ const WalletDashboard = ({ user }) => {
 
   return (
     <div className="container px-5 py-24 mx-auto">
+      {/* Dashboard Stats Component */}
+      <section className="text-gray-600 body-font">
+        <div className="container px-5 py-6 mx-auto">
+          <div className="flex flex-wrap -m-4 text-center">
+            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
+              <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                <p className="leading-relaxed">Portfolio balance</p>
+                <h2 className="title-font font-medium text-3xl text-lime-400">$0</h2>
+              </div>
+            </div>
+            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
+              <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                <p className="leading-relaxed">Portfolio Status</p>
+                <h2 className="title-font font-medium text-3xl text-gray-900">+1.3%</h2>
+              </div>
+            </div>
+            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
+              <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                <p className="leading-relaxed">Solana Status</p>
+                <h2 className="title-font font-medium text-3xl text-gray-900">+7.4%</h2>
+              </div>
+            </div>
+            <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
+              <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                <p className="leading-relaxed">Wallets</p>
+                <h2 className="title-font font-medium text-3xl text-gray-900">46</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {loading ? (
         <div>Loading...</div> // Show a loading state while fetching seed phrase
       ) : !seedCreated ? (
@@ -77,14 +108,8 @@ const WalletDashboard = ({ user }) => {
         <div>
           <h2 className="text-lg font-bold mb-4">Your Wallets</h2>
           <SolanaWallet mnemonic={mnemonicWords.join(' ')} />
-          <EthWallet mnemonic={mnemonicWords.join(' ')} />
 
-          <button
-            className="mt-4 text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg"
-            onClick={handleShowSeed}
-          >
-            {showSeed ? 'Hide Seed Phrase' : 'Show Seed Phrase'}
-          </button>
+          
 
           {showSeed && (
             <div className="mt-4">
